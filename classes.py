@@ -90,6 +90,11 @@ class Headlines(object):
         x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size, random_state=0)
         return x_train, x_test, y_train, y_test
     
+    def splitting_data_threesets(self, x, y, train_size):
+        x_train, x_mix, y_train, y_mix = train_test_split(x, y, train_size=train_size)
+        x_val, x_test, y_val, y_test = train_test_split(x_mix, y_mix, train_size=0.5)
+        return x_train, x_val, x_test, y_train, y_val, y_test
+    
     def concatenate_headlines(self, df):
         x = df.loc[:,"Headline"]
         delimiter = " "
@@ -116,7 +121,7 @@ class Headlines(object):
         for x in x_int:
             if len(x)>max_len:
                 max_len = len(x)
-        print 'The longest headline consists of', max_len, 'words'
+        print ('The longest headline consists of', max_len, 'words')
         return max_len
     
     def min_hl_number(self, df):
